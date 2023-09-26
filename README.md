@@ -1,7 +1,5 @@
 # Book Summar (Trabalho A3)
 
-![Capa do Projeto](https://picsum.photos/850/280)
-
 # Sobre o Projeto
 
 Este repositório contém o projeto desenvolvido como parte da disciplina "Estruturas de Dados e Análise de Algoritmos" da faculdade UNA Betim, Trabalho A3. O projeto aborda o desenvolvimento de uma aplicação dedicada a facilitar o acesso a resumos de
