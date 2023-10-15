@@ -16,7 +16,7 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("API - Book Summary")
                         .description("API de gerenciamento de resumos de livros")
-                        .version("0.0.1")
+                        .version("1.0.0")
                         .termsOfService("Termo de uso: Open Source")
                         .license(new License()
                                 .name("Licença não definida")
