@@ -17,8 +17,8 @@ livros de maneira fácil e rápida.
 * [Sumário](#índice/sumário)
 * [Requisitos Funcionais](#requisitos-funcionais)
 * [Tecnologias Usadas](#tecnologias-usadas)
-* [Documentação do Swagger](#documentação-do-swagger)
 * [Execução Local](#execução-local)
+* [Documentação do Swagger](#documentação-do-swagger)
 * [Contribuição](#contribuição)
 * [Autores](#autores)
 * [Licença](#licença)
@@ -36,6 +36,31 @@ livros de maneira fácil e rápida.
 - [Java](https://www.java.com/pt-BR/)
 - [Spring](https://spring.io/)
 - [MySQL](https://www.mysql.com/)
+
+# Execução Local
+
+Antes de começar, certifique-se de ter as seguintes ferramentas e dependências instaladas em sua máquina:
+
+- [Java Development Kit (JDK17)](https://www.oracle.com/java/technologies/javase-downloads.html)
+- [Maven 3.11.0](https://maven.apache.org/download.cgi)
+- [MySQL Server](https://dev.mysql.com/downloads/installer/)
+- Um ambiente de desenvolvimento integrado (IDE), como [IntelliJ IDEA](https://www.jetbrains.com/idea/)
+
+Para executar a aplicação localmente e testar suas funcionalidades, siga os passos abaixo:
+
+1. Clone este repositório em seu ambiente de desenvolvimento.
+
+2. Configure as informações do banco de dados MySQL no arquivo `application.properties`.
+
+4. Abra um terminal na raiz do projeto e execute o seguinte comando para compilar o projeto:
+   ```bash
+   mvn clean install
+   ```
+5. Após a conclusão da compilação, inicie a aplicação com o seguinte comando:
+   ```bash
+   mvn java -jar target/booksummar-1.0.0.jar
+   ```
+6. A aplicação estará disponível em http://localhost:8080. Você pode acessar a documentação do Swagger em Swagger UI.
 
 # Documentação do Swagger
 
@@ -67,31 +92,6 @@ desenvolvimento e a depuração de solicitações.
 ![Swagger UI](./images/swagger.png)
 
 Aproveite a documentação interativa do Swagger para explorar e testar a API de maneira eficaz.
-
-## Execução Local
-
-Antes de começar, certifique-se de ter as seguintes ferramentas e dependências instaladas em sua máquina:
-
-- [Java Development Kit (JDK17)](https://www.oracle.com/java/technologies/javase-downloads.html)
-- [Maven 3.11.0](https://maven.apache.org/download.cgi)
-- [MySQL Server](https://dev.mysql.com/downloads/installer/)
-- Um ambiente de desenvolvimento integrado (IDE), como [IntelliJ IDEA](https://www.jetbrains.com/idea/)
-
-Para executar a aplicação localmente e testar suas funcionalidades, siga os passos abaixo:
-
-1. Clone este repositório em seu ambiente de desenvolvimento.
-
-2. Configure as informações do banco de dados MySQL no arquivo `application.properties`.
-
-4. Abra um terminal na raiz do projeto e execute o seguinte comando para compilar o projeto:
-   ```bash
-   mvn clean install
-   ```
-5. Após a conclusão da compilação, inicie a aplicação com o seguinte comando:
-   ```bash
-   mvn java -jar target/booksummar-1.0.0.jar
-   ```
-6. A aplicação estará disponível em http://localhost:8080. Você pode acessar a documentação do Swagger em Swagger UI.
 
 # Contribuição
 
