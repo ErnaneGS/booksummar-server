@@ -37,33 +37,25 @@ public class UserService {
     }
 
     public UserResponse findById(UUID idUser) {
-        if(!userRepository.findById(idUser).isPresent()){
-            throw new NoSuchElementException("No User was found with the specified Id.");
-        } else {
-            User user = userRepository.findById(idUser).get();
-            UserResponse userResponse = userMapper.userToUserResponse(user);
-            return userResponse;
-        }
+        User user = userRepository.findById(idUser)
+                .orElseThrow(() -> new NoSuchElementException("Nenhum usuário encontrado com o Id informado."));
+        return userMapper.userToUserResponse(user);
     }
 
     public UserResponse update(UserRequest userRequest, UUID idUser) {
-        if(!userRepository.findById(idUser).isPresent()){
-            throw new NoSuchElementException("No User was found with the specified Id.");
-        } else {
-            User user = userRepository.findById(idUser).get();
-            userMapper.userUpdate(userRequest, user);
-            userRepository.save(user);
-            UserResponse userResponse = userMapper.userToUserResponse(user);
+        User user = userRepository.findById(idUser)
+                .orElseThrow(() -> new NoSuchElementException("Nenhum usuário encontrado com o Id informado"));
 
-            return userResponse;
-        }
+        userMapper.userUpdate(userRequest, user);
+        user = userRepository.save(user);
+        return userMapper.userToUserResponse(user);
     }
 
     public void delete(UUID idUser) {
-        if(!userRepository.findById(idUser).isPresent()){
-            throw new NoSuchElementException("No User was found with the specified Id.");
-        } else {
+        if (userRepository.existsById(idUser)) {
             userRepository.deleteById(idUser);
+        } else {
+            throw new NoSuchElementException("Nenhum usuário encontrado com o Id informado.");
         }
     }
 }
