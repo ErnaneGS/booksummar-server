@@ -17,8 +17,10 @@ import java.util.UUID;
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired private UserRepository userRepository;
-    @Autowired private UserService userService;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private UserService userService;
 
     @PostMapping
     public ResponseEntity<UserResponse> create(@RequestBody @Valid UserRequest userRequest) {
