@@ -42,7 +42,7 @@ livros de maneira fácil e rápida.
 Antes de começar, certifique-se de ter as seguintes ferramentas e dependências instaladas em sua máquina:
 
 - [Java Development Kit (JDK17)](https://www.oracle.com/java/technologies/javase-downloads.html)
-- [Maven 3.11.0](https://maven.apache.org/download.cgi)
+- [Maven 3.9.5](https://maven.apache.org/download.cgi)
 - [MySQL Server](https://dev.mysql.com/downloads/installer/)
 - Um ambiente de desenvolvimento integrado (IDE), como [IntelliJ IDEA](https://www.jetbrains.com/idea/)
 
