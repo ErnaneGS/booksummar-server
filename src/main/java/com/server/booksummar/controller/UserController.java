@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,13 +21,6 @@ public class UserController {
     private UserRepository userRepository;
     @Autowired
     private UserService userService;
-
-    @PostMapping
-    @Operation(summary = "Cria um novo usuário")
-    public ResponseEntity<UserResponse> create(@RequestBody @Valid UserRequest userRequest) {
-        UserResponse userResponse = userService.create(userRequest);
-        return ResponseEntity.created(URI.create("/user" + userResponse.getId())).body(userResponse);
-    }
 
     @GetMapping
     @Operation(summary = "Busca todos os usuários")
