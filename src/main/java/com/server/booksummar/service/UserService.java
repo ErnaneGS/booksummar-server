@@ -6,6 +6,7 @@ import com.server.booksummar.dto.response.UserResponse;
 import com.server.booksummar.mapper.UserMapper;
 import com.server.booksummar.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,12 +22,6 @@ public class UserService {
 
     @Autowired
     private UserMapper userMapper;
-
-    public UserResponse create(UserRequest userRequest) {
-        User user = userMapper.userRequestToUser(userRequest);
-        userRepository.save(user);
-        return userMapper.userToUserResponse(user);
-    }
 
     public List<UserResponse> findAll() {
         List<User> users = userRepository.findAll();
@@ -45,6 +40,8 @@ public class UserService {
     public UserResponse update(UserRequest userRequest, UUID idUser) {
         User user = userRepository.findById(idUser)
                 .orElseThrow(() -> new NoSuchElementException("Nenhum usuário encontrado com o Id informado"));
+
+        userRequest.setPassword(new BCryptPasswordEncoder().encode(userRequest.getPassword()));
 
         userMapper.userUpdate(userRequest, user);
         user = userRepository.save(user);
