@@ -11,7 +11,6 @@ import com.server.booksummar.repository.UserRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
@@ -41,22 +40,22 @@ public class AuthenticationController {
     @Operation(summary = "Realiza o login de um usuário")
     public ResponseEntity<?> login(@RequestBody @Valid AuthenticationRequest authenticationRequest) {
         try {
-            var usernamePassword = new UsernamePasswordAuthenticationToken(authenticationRequest.login(), authenticationRequest.password());
+            var usernamePassword = new UsernamePasswordAuthenticationToken(authenticationRequest.getLogin(), authenticationRequest.getPassword());
             var auth = authenticationManager.authenticate(usernamePassword);
             var token = tokenService.generateToken((User) auth.getPrincipal());
             LoginResponse loginResponse = new LoginResponse(token, ((User) auth.getPrincipal()).getId());
 
             return ResponseEntity.ok(loginResponse);
         } catch (DisabledException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Sua conta está desativada. Entre em contato com o suporte.");
+            throw new DisabledException("Sua conta está desativada. Entre em contato com o suporte.");
         } catch (BadCredentialsException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas. Verifique seu login e senha.");
+            throw new BadCredentialsException("Credenciais inválidas. Verifique seu login e senha.");
         } catch (LockedException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Sua conta está bloqueada. Entre em contato com o suporte.");
+            throw new LockedException("Sua conta está bloqueada. Entre em contato com o suporte.");
         } catch (AuthenticationException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Falha na autenticação. Verifique suas credenciais.");
+            throw new RuntimeException("Falha na autenticação. Verifique suas credenciais.");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Falha no login.");
+            throw new RuntimeException("Falha no login.");
         }
     }
 
@@ -75,10 +74,8 @@ public class AuthenticationController {
 
             RegisterResponse registerResponse = registerMapper.UserToRegisterResponse(savedUser);
             return ResponseEntity.ok(registerResponse);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        } catch (Exception ex) {
+            throw new RuntimeException(ex.getMessage());
         }
     }
 }
