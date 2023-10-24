@@ -10,10 +10,10 @@ import java.util.UUID;
 public class BookSummaryRequest {
 
     @NotBlank(message = "O campo 'título' não pode estar em branco.")
-    @Size(min = 3, max = 30)
+    @Size(min = 3, max = 30, message = "O campo 'título' deve ter entre 3 e 30 caracteres")
     private String title;
 
-    @NotBlank(message = "O campo 'título' não pode estar em branco.")
+    @NotBlank(message = "O campo 'resumo' não pode estar em branco.")
     private String summary;
 
     @NotBlank(message = "O campo 'nome do livro' não pode estar em branco.")
