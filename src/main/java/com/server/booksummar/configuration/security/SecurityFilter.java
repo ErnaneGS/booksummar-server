@@ -1,5 +1,7 @@
 package com.server.booksummar.configuration.security;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.server.booksummar.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
@@ -25,15 +28,23 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        var token = this.recoverToken(request);
-        if (token != null) {
-            var login = tokenService.validateToken(token);
-            UserDetails user = userRepository.findByLogin(login);
+        try {
+            var token = this.recoverToken(request);
+            if (token != null) {
+                var login = tokenService.validateToken(token);
+                UserDetails user = userRepository.findByLogin(login);
 
-            var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+                var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
+            filterChain.doFilter(request, response);
+        } catch (TokenExpiredException ex) {
+            throw new TokenExpiredException("Token expirado", ex.getExpiredOn());
+        } catch (JWTVerificationException ex) {
+            throw new JWTVerificationException("Falha na verificação do token");
+        } catch (Exception ex) {
+            throw new RemoteException(ex.getMessage());
         }
-        filterChain.doFilter(request, response);
     }
 
     private String recoverToken(HttpServletRequest request) {
