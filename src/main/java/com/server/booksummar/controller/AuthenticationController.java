@@ -1,13 +1,17 @@
 package com.server.booksummar.controller;
 
 import com.server.booksummar.configuration.security.TokenService;
+import com.server.booksummar.domain.EmailDetails;
 import com.server.booksummar.domain.User;
 import com.server.booksummar.dto.request.AuthenticationRequest;
+import com.server.booksummar.dto.request.PasswordRecoveryRequest;
 import com.server.booksummar.dto.request.RegisterRequest;
 import com.server.booksummar.dto.response.LoginResponse;
 import com.server.booksummar.dto.response.RegisterResponse;
 import com.server.booksummar.mapper.RegisterMapper;
 import com.server.booksummar.repository.UserRepository;
+import com.server.booksummar.service.AuthorizationService;
+import com.server.booksummar.service.EmailService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +23,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("auth")
@@ -35,6 +41,15 @@ public class AuthenticationController {
 
     @Autowired
     private RegisterMapper registerMapper;
+
+    @Autowired
+    private AuthorizationService authorizationService;
+
+    @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @PostMapping("/login")
     @Operation(summary = "Realiza o login de um usuário")
@@ -73,9 +88,40 @@ public class AuthenticationController {
             User savedUser = repository.save(newUser);
 
             RegisterResponse registerResponse = registerMapper.UserToRegisterResponse(savedUser);
+
+            EmailDetails emailDetails = new EmailDetails();
+            emailDetails.setSubject("BOOK FEEDBACK - REGISTRO");
+            emailDetails.setMessageBody("Registro realizado com sucesso! " + savedUser.getName() + " seja bem vindo ao Book Feedback, a sua plataforma de resumos de livros. .");
+            emailDetails.setRecipient(savedUser.getUsername());
+            emailService.sendEmail(emailDetails);
+
             return ResponseEntity.ok(registerResponse);
         } catch (Exception ex) {
             throw new RuntimeException(ex.getMessage());
+        }
+    }
+
+    @PostMapping("/requestNewPassword")
+    @Operation(summary = "Geração de nova senha para um usuário")
+    public ResponseEntity<String> requestNewPassword(@RequestBody @Valid PasswordRecoveryRequest passwordRecoveryRequest) {
+        try {
+            User user = (User) authorizationService.loadUserByUsername(passwordRecoveryRequest.getLogin());
+
+            String randomCode = UUID.randomUUID().toString().replace("-", "").substring(0, 8);
+            String encryptedPassword = new BCryptPasswordEncoder().encode(randomCode);
+            user.setPassword(encryptedPassword);
+            userRepository.save(user);
+
+            EmailDetails emailDetails = new EmailDetails();
+            emailDetails.setSubject("BOOK FEEDBACK - RECUPERAÇÃO DE SENHA");
+            emailDetails.setMessageBody("Sua nova senha é: " + randomCode + " Use esta senha em seu próximo login e cadastre uma nova em Alteração de Dados.");
+            emailDetails.setRecipient(user.getUsername());
+            emailService.sendEmail(emailDetails);
+
+            return ResponseEntity.ok("Nova senha encaminhada com sucesso");
+
+        } catch (NullPointerException ex) {
+            throw new RuntimeException("Nenhum usuário encontrado com este login");
         }
     }
 }
