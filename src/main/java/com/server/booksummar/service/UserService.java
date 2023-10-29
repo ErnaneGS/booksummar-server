@@ -23,6 +23,9 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private AuthorizationService authorizationService;
+
     public List<UserResponse> findAll() {
         List<User> users = userRepository.findAll();
         return users
@@ -41,7 +44,7 @@ public class UserService {
         User user = userRepository.findById(idUser)
                 .orElseThrow(() -> new NoSuchElementException("Nenhum usuário encontrado com o Id informado"));
 
-        userRequest.setPassword(new BCryptPasswordEncoder().encode(userRequest.getPassword()));
+        user.setPassword(new BCryptPasswordEncoder().encode(userRequest.getPassword()));
 
         userMapper.userUpdate(userRequest, user);
         user = userRepository.save(user);
