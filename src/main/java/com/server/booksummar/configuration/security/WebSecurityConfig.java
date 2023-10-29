@@ -39,19 +39,18 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/bookSummary/{id}").hasRole("USER")
                         .requestMatchers(HttpMethod.PUT, "/bookSummary/{id}").hasRole("USER")
                         .requestMatchers(HttpMethod.DELETE, "/bookSummary/{id}").hasRole("USER")
-                        .requestMatchers(HttpMethod.GET, "/bookSummary").hasRole("USER")
                         .requestMatchers(HttpMethod.POST, "/bookSummary").hasRole("USER")
                         .requestMatchers(HttpMethod.GET, "/bookSummary").hasRole("USER")
                         .requestMatchers(HttpMethod.GET, "/bookSummary/userId/{userId}").hasRole("USER")
                         .requestMatchers(HttpMethod.GET, "/bookSummary/booName/{booName}").hasRole("USER")
                         .requestMatchers(HttpMethod.GET, "/bookSummary/bookAuthor/{bookAuthor}").hasRole("USER")
+                        .requestMatchers(HttpMethod.POST, "/bookSummary/sendSummaryEmail/{bookId}/{userId}").hasRole("USER")
                         .requestMatchers(HttpMethod.GET, "/user/{id}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/user/{id}").hasRole("USER")
                         .requestMatchers(HttpMethod.DELETE, "/user/{id}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/user").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/user").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/requestNewPassword").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -64,7 +63,7 @@ public class WebSecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Custom-Header"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
