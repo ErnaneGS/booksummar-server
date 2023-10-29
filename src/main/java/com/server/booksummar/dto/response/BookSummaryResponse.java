@@ -1,5 +1,6 @@
 package com.server.booksummar.dto.response;
 
+import com.server.booksummar.domain.enums.BookCategory;
 import lombok.Data;
 
 import java.util.UUID;
@@ -16,6 +17,10 @@ public class BookSummaryResponse {
     private String bookName;
 
     private String bookAuthor;
+
+    private BookCategory bookCategory;
+
+    private String bookImage;
 
     private UUID userId;
 

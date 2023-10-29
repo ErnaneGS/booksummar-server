@@ -1,6 +1,10 @@
 package com.server.booksummar.domain;
 
-import jakarta.persistence.*;
+import com.server.booksummar.domain.enums.BookCategory;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Data;
 
 import java.util.UUID;
@@ -20,6 +24,10 @@ public class BookSummary {
     private String bookName;
 
     private String bookAuthor;
+
+    private BookCategory bookCategory;
+
+    private String bookImage;
 
     private UUID userId;
 

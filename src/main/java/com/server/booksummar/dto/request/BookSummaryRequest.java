@@ -1,5 +1,6 @@
 package com.server.booksummar.dto.request;
 
+import com.server.booksummar.domain.enums.BookCategory;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -21,6 +22,12 @@ public class BookSummaryRequest {
 
     @NotBlank(message = "O campo 'autor do livro' não pode estar em branco.")
     private String bookAuthor;
+
+    @NotBlank(message = "O campo 'nome do livro' não pode estar em branco.")
+    private BookCategory bookCategory;
+
+    @NotBlank(message = "O campo 'nome do livro' não pode estar em branco.")
+    private String bookImage;
 
     private UUID userId;
 
