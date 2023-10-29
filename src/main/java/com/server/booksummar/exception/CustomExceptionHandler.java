@@ -12,7 +12,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.time.ZonedDateTime;
 import java.util.NoSuchElementException;
@@ -21,7 +20,10 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class CustomExceptionHandler {
 
-    @ExceptionHandler({Exception.class, MethodArgumentNotValidException.class, MethodArgumentTypeMismatchException.class})
+    //MethodArgumentTypeMismatchException.class}
+    //Exception.class
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<DefaultException> handleResourceNotFoundException(MethodArgumentNotValidException ex) {
         DefaultException defaultException = new DefaultException();
 
@@ -62,7 +64,7 @@ public class CustomExceptionHandler {
         return ResponseEntity.status(defaultException.getStatus()).body(defaultException);
     }
 
-    @ExceptionHandler({DisabledException.class, BadCredentialsException.class, LockedException.class, AuthenticationException.class})
+    @ExceptionHandler({Exception.class, DisabledException.class, BadCredentialsException.class, LockedException.class, AuthenticationException.class})
     public ResponseEntity<DefaultException> handleAuthenticationExceptions(Exception ex) {
         DefaultException defaultException = new DefaultException();
         defaultException.setZonedDateTime(ZonedDateTime.now());
