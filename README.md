@@ -1,11 +1,10 @@
-# Book Summar (Trabalho A3)
+# Book Summary (Trabalho A3)
 
 # Sobre o Projeto
 
 Este repositório contém o projeto desenvolvido como parte da disciplina "Estruturas de Dados e Análise de Algoritmos" da
 faculdade UNA Betim, Trabalho A3. O projeto aborda o desenvolvimento de uma aplicação dedicada a facilitar o acesso a
-resumos de
-livros de maneira fácil e rápida.
+resumos de livros de maneira fácil e rápida.
 
 <h4 align="center"> 
 	🚧  Em desenvolvimento . . .
@@ -30,6 +29,7 @@ livros de maneira fácil e rápida.
 - [ ] Fazer Login
 - [ ] Cadastrar resumos de livros
 - [ ] Buscar resumos de livros
+- [ ] Compartilhar resumos de livro por e-mail
 
 # Tecnologias Usadas
 
@@ -51,6 +51,19 @@ Para executar a aplicação localmente e testar suas funcionalidades, siga os pa
 1. Clone este repositório em seu ambiente de desenvolvimento.
 
 2. Configure as informações do banco de dados MySQL no arquivo `application.properties`.
+   Para este projeto, utilizamos os servidores do GMail para o envio de e-mails. Portanto, será necessário gerar uma 
+3. 'senha de aplicativo' para que a API possa se comunicar com o GMail. Esse processo pode ser realizado seguindo 
+[este tutorial](https://www.jetbrains.com/idea/)
+   ```markdown
+    spring.datasource.username=username #adicione aqui o username do banco de dados
+    spring.datasource.password=password #adicione aqui a senha de app (Gmail)
+   ```
+
+3. Configure as informações do e-mail responsável pela comunicação com o usuário no arquivo `application.properties`.
+   ```markdown
+    spring.mail.username=email #adicione aqui o username do banco de dados
+    spring.mail.password= #adicione aqui o username do banco de dados
+   ```
 
 4. Abra um terminal na raiz do projeto e execute o seguinte comando para compilar o projeto:
    ```bash
@@ -93,10 +106,8 @@ desenvolvimento e a depuração de solicitações.
 
 Aproveite a documentação interativa do Swagger para explorar e testar a API de maneira eficaz.
 
-# Contribuição
-
 # Autores
+[Ernane Sousa](https://github.com/ErnaneGS/).
+[Gustavo Henrique](https://github.com/gustavohenri316).
 
-# Licença
 
-# Agradecimentos
