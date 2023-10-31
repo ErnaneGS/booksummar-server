@@ -17,6 +17,8 @@ public class BookSummaryResponse {
 
     private String bookAuthor;
 
+    private String bookImage;
+
     private UUID userId;
 
 }

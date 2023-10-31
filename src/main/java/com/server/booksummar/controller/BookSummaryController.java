@@ -30,7 +30,6 @@ public class BookSummaryController {
         return ResponseEntity.created(URI.create("/bookSummary" + bookSummaryResponse.getId())).body(bookSummaryResponse);
     }
 
-
     @GetMapping
     @Operation(summary = "Busca todos os resumos de livros")
     public ResponseEntity<List<BookSummaryResponse>> findAll() {
@@ -72,5 +71,12 @@ public class BookSummaryController {
     public void delete(@PathVariable UUID id) {
         bookSummaryService.delete(id);
         ResponseEntity.ok();
+    }
+
+    @PostMapping("/sendSummaryEmail/{bookId}/{userId}")
+    @Operation(summary = "Envia um resumo de um livro para um usuário")
+    public ResponseEntity<BookSummaryResponse> sendSummaryEmail(@PathVariable UUID bookId, @PathVariable UUID userId) {
+        BookSummaryResponse bookSummaryResponse = bookSummaryService.sendSummaryEmail(bookId, userId);
+        return ResponseEntity.created(URI.create("/bookSummary" + bookSummaryResponse.getId())).body(bookSummaryResponse);
     }
 }
