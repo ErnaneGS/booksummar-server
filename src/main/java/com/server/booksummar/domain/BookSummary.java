@@ -1,6 +1,5 @@
 package com.server.booksummar.domain;
 
-import com.server.booksummar.domain.enums.BookCategory;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,15 +16,11 @@ public class BookSummary {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private String title;
-
     private String summary;
 
     private String bookName;
 
     private String bookAuthor;
-
-    private BookCategory bookCategory;
 
     private String bookImage;
 
