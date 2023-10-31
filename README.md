@@ -6,10 +6,6 @@ Este repositório contém o projeto desenvolvido como parte da disciplina "Estru
 faculdade UNA Betim, Trabalho A3. O projeto aborda o desenvolvimento de uma aplicação dedicada a facilitar o acesso a
 resumos de livros de maneira fácil e rápida.
 
-<h4 align="center"> 
-	🚧  Em desenvolvimento . . .
-</h4>
-
 # Índice/Sumário
 
 * [Sobre](#sobre-o-projeto)
@@ -18,12 +14,14 @@ resumos de livros de maneira fácil e rápida.
 * [Tecnologias Usadas](#tecnologias-usadas)
 * [Execução Local](#execução-local)
 * [Documentação do Swagger](#documentação-do-swagger)
+* [Histórico de Versões](#Histórico-de-Versões)
+* [Licença](#Licença)
 * [Autores](#autores)
 
 # Requisitos Funcionais
 
 - [ ] Cadastrar Usuário
-- [ ] Fazer Login
+- [ ] Fazer Login (autenticação)
 - [ ] Cadastrar resumos de livros
 - [ ] Buscar resumos de livros
 - [ ] Compartilhar resumos de livro por e-mail
@@ -49,17 +47,17 @@ Para executar a aplicação localmente e testar suas funcionalidades, siga os pa
 
 2. Configure as informações do banco de dados MySQL no arquivo `application.properties`.
    ```markdown
-    spring.mail.username=email #adicione aqui o username do banco de dados
-    spring.mail.password= #adicione aqui o username do banco de dados
+    spring.mail.username=username #adicione aqui o username do banco de dados
+    spring.mail.password=password #adicione aqui a senha do banco de dados
    ```
 
 3. Configure as informações do e-mail no arquivo para comunicação com o usuário `application.properties`.
-   Para este projeto, utilizamos os servidores do GMail para o envio de e-mails. Portanto, será necessário gerar uma
+   Para este projeto, utilizamos os servidores do Gmail para o envio de e-mails. Portanto, será necessário gerar uma
    'senha de aplicativo' para que a API possa se comunicar com o GMail. Esse processo pode ser realizado seguindo
    [este tutorial](https://www.jetbrains.com/idea/)
    ```markdown
-    spring.datasource.username=username #adicione aqui o username do banco de dados
-    spring.datasource.password=password #adicione aqui a senha de app (Gmail)
+    spring.datasource.username=email #adicione aqui o email (Gmail)
+    spring.datasource.password=senha-app #adicione aqui a senha de aplicativo (Gmail)
    ```
 
 4. Abra um terminal na raiz do projeto e execute o seguinte comando para compilar o projeto:
@@ -102,6 +100,20 @@ desenvolvimento e a depuração de solicitações.
 ![Swagger UI](./images/swagger.png)
 
 Aproveite a documentação interativa do Swagger para explorar e testar a API de maneira eficaz.
+
+# Histórico de Versões
+
+## [1.0.0] - [31/10/2023]
+### Adicionado
+- [BS-2] Recurso de cadastro de usuário
+- [BS-6] Recurso de autenticação de login
+- [BS-3] Recurso de cadastro de resumos de livros
+- [BS-3] Recurso de busca de resumos de livros
+- [BS-10] Recurso de compartilhamento de resumos de livro por e-mail
+
+# Licença
+
+Este projeto é disponibilizado sob a Licença [MIT License]. Veja o arquivo LICENSE.md para obter mais informações.
 
 # Autores
 [Ernane Sousa](https://github.com/ErnaneGS/).
