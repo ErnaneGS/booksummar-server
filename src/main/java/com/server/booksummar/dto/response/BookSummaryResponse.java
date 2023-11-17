@@ -9,8 +9,6 @@ public class BookSummaryResponse {
 
     private UUID id;
 
-    private String title;
-
     private String summary;
 
     private String bookName;
@@ -19,6 +17,6 @@ public class BookSummaryResponse {
 
     private String bookImage;
 
-    private UUID userId;
+    private UserResponse user;
 
 }

@@ -23,10 +23,10 @@ public class BookSummaryController {
     @Autowired
     private BookSummaryService bookSummaryService;
 
-    @PostMapping
+    @PostMapping("/{userId}")
     @Operation(summary = "Cria um novo resumo de livro")
-    public ResponseEntity<BookSummaryResponse> create(@RequestBody @Valid BookSummaryRequest bookSummaryRequest) {
-        BookSummaryResponse bookSummaryResponse = bookSummaryService.create(bookSummaryRequest);
+    public ResponseEntity<BookSummaryResponse> create(@RequestBody @Valid BookSummaryRequest bookSummaryRequest, @PathVariable UUID userId) {
+        BookSummaryResponse bookSummaryResponse = bookSummaryService.create(bookSummaryRequest, userId);
         return ResponseEntity.created(URI.create("/bookSummary" + bookSummaryResponse.getId())).body(bookSummaryResponse);
     }
 
@@ -42,10 +42,10 @@ public class BookSummaryController {
         return ResponseEntity.ok(bookSummaryService.findById(id));
     }
 
-    @PutMapping("{id}")
+    @PutMapping("{bookId}/{userId}")
     @Operation(summary = "Atualiza um resumo pelo Id")
-    public ResponseEntity<BookSummaryResponse> update(@RequestBody @Valid BookSummaryRequest bookSummaryRequest, @PathVariable UUID id) {
-        return ResponseEntity.ok(bookSummaryService.update(bookSummaryRequest, id));
+    public ResponseEntity<BookSummaryResponse> update(@RequestBody @Valid BookSummaryRequest bookSummaryRequest, @PathVariable UUID bookId, @PathVariable UUID userId) {
+        return ResponseEntity.ok(bookSummaryService.update(bookSummaryRequest, bookId, userId));
     }
 
     @GetMapping("/bookName/{bookName}")

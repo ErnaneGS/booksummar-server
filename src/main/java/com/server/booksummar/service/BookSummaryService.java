@@ -2,11 +2,13 @@ package com.server.booksummar.service;
 
 import com.server.booksummar.domain.BookSummary;
 import com.server.booksummar.domain.EmailDetails;
+import com.server.booksummar.domain.User;
 import com.server.booksummar.dto.request.BookSummaryRequest;
 import com.server.booksummar.dto.response.BookSummaryResponse;
 import com.server.booksummar.dto.response.UserResponse;
 import com.server.booksummar.mapper.BookSummaryMapper;
 import com.server.booksummar.repository.BookSummaryRepository;
+import com.server.booksummar.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,13 +27,18 @@ public class BookSummaryService {
     private BookSummaryMapper bookSummaryMapper;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private EmailService emailService;
 
     @Autowired
     private UserService userService;
 
-    public BookSummaryResponse create(BookSummaryRequest bookSummaryRequest) {
+    public BookSummaryResponse create(BookSummaryRequest bookSummaryRequest, UUID userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("Nenhum usuário encontrado com o Id informado."));
         BookSummary bookSummary = bookSummaryMapper.bookSummaryRequestToBookSummary(bookSummaryRequest);
+        bookSummary.setUser(user);
         bookSummaryRepository.save(bookSummary);
         return bookSummaryMapper.bookSummaryToBookSummaryResponse(bookSummary);
     }
@@ -50,10 +57,12 @@ public class BookSummaryService {
         return bookSummaryMapper.bookSummaryToBookSummaryResponse(bookSummary);
     }
 
-    public BookSummaryResponse update(BookSummaryRequest bookSummaryRequest, UUID idBookSummary) {
+    public BookSummaryResponse update(BookSummaryRequest bookSummaryRequest, UUID idBookSummary, UUID userId) {
         BookSummary bookSummary = bookSummaryRepository.findById(idBookSummary)
                 .orElseThrow(() -> new NoSuchElementException("Nenhum resumo encontrado com o Id informado"));
-
+        if (!bookSummary.getUser().getId().equals(userId)) {
+            throw new RuntimeException("Operação permitida apenas para o autor deste resumo.");
+        }
         bookSummaryMapper.bookSummaryUpdate(bookSummaryRequest, bookSummary);
         bookSummary = bookSummaryRepository.save(bookSummary);
         return bookSummaryMapper.bookSummaryToBookSummaryResponse(bookSummary);
