@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Entity
@@ -23,6 +24,8 @@ public class BookSummary {
     private String bookAuthor;
 
     private String bookImage;
+
+    private ZonedDateTime summaryDate;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

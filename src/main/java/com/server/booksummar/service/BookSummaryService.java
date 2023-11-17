@@ -12,6 +12,7 @@ import com.server.booksummar.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
@@ -39,6 +40,7 @@ public class BookSummaryService {
         User user = userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("Nenhum usuário encontrado com o Id informado."));
         BookSummary bookSummary = bookSummaryMapper.bookSummaryRequestToBookSummary(bookSummaryRequest);
         bookSummary.setUser(user);
+        bookSummary.setSummaryDate(ZonedDateTime.now());
         bookSummaryRepository.save(bookSummary);
         return bookSummaryMapper.bookSummaryToBookSummaryResponse(bookSummary);
     }
@@ -64,6 +66,7 @@ public class BookSummaryService {
             throw new RuntimeException("Operação permitida apenas para o autor deste resumo.");
         }
         bookSummaryMapper.bookSummaryUpdate(bookSummaryRequest, bookSummary);
+        bookSummary.setSummaryDate(ZonedDateTime.now());
         bookSummary = bookSummaryRepository.save(bookSummary);
         return bookSummaryMapper.bookSummaryToBookSummaryResponse(bookSummary);
     }
