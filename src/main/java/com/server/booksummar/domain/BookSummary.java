@@ -14,6 +14,8 @@ public class BookSummary {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String summary;
 
     private String bookName;
