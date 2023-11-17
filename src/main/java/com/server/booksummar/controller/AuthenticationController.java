@@ -79,7 +79,7 @@ public class AuthenticationController {
     public ResponseEntity<?> register(@RequestBody @Valid RegisterRequest registerRequest) {
         try {
             if (repository.findByLogin(registerRequest.getLogin()) != null) {
-                throw new RuntimeException("Já existe um usuário com o login." + registerRequest.getLogin());
+                throw new RuntimeException("Já existe um usuário com o login: " + registerRequest.getLogin());
             }
 
             String encryptedPassword = new BCryptPasswordEncoder().encode(registerRequest.getPassword());
@@ -91,7 +91,7 @@ public class AuthenticationController {
 
             EmailDetails emailDetails = new EmailDetails();
             emailDetails.setSubject("BOOK FEEDBACK - REGISTRO");
-            emailDetails.setMessageBody("Registro realizado com sucesso! " + savedUser.getName() + " seja bem vindo ao Book Feedback, a sua plataforma de resumos de livros. .");
+            emailDetails.setMessageBody("Registro realizado com sucesso! " + savedUser.getName() + " seja bem vindo(a) ao Book Feedback, a sua plataforma de resumos de livros.");
             emailDetails.setRecipient(savedUser.getUsername());
             emailService.sendEmail(emailDetails);
 
