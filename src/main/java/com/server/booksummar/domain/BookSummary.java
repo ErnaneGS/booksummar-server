@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -31,5 +32,15 @@ public class BookSummary {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bookSummaryId")
+    @JsonIgnore
+    private List<Comment> comments;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bookSummaryId")
+    @JsonIgnore
+    private List<Likes> likes;
 
 }
