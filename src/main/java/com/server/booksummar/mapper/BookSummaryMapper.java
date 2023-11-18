@@ -14,6 +14,7 @@ public interface BookSummaryMapper {
     public BookSummary bookSummaryRequestToBookSummary(BookSummaryRequest bookSummaryRequest);
 
     @Mapping(target = "user", source = "user")
+    @Mapping(target = "comments", source = "comments")
     public BookSummaryResponse bookSummaryToBookSummaryResponse(BookSummary bookSummary);
 
     public void bookSummaryUpdate(BookSummaryRequest bookSummaryRequest, @MappingTarget BookSummary bookSummary);
