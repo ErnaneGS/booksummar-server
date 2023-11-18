@@ -25,6 +25,7 @@ resumos de livros de maneira fácil e rápida.
 - [ ] Cadastrar resumos de livros
 - [ ] Buscar resumos de livros
 - [ ] Compartilhar resumos de livro por e-mail
+- [ ] Curtir e Comentar resumos de livro
 
 # Tecnologias Usadas
 
@@ -111,6 +112,11 @@ Aproveite a documentação interativa do Swagger para explorar e testar a API de
 - [BS-3] Recurso de busca de resumos de livros
 - [BS-10] Recurso de compartilhamento de resumos de livro por e-mail
 
+## [1.1.0] - [A SER LANÇADO]
+### Adicionado
+- [BS-12] Recurso para curtir e comentar resumos
+### Melhorias
+- [BS-13] Melhorias no relacionamento das entidades BookSummary e User
 # Licença
 
 Este projeto é disponibilizado sob a Licença [MIT License]. Veja o arquivo LICENSE.md para obter mais informações.
