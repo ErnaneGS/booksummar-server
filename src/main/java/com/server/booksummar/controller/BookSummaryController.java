@@ -1,7 +1,10 @@
 package com.server.booksummar.controller;
 
 import com.server.booksummar.dto.request.BookSummaryRequest;
+import com.server.booksummar.dto.request.CommentRequest;
 import com.server.booksummar.dto.response.BookSummaryResponse;
+import com.server.booksummar.dto.response.CommentResponse;
+import com.server.booksummar.dto.response.LikesResponse;
 import com.server.booksummar.repository.BookSummaryRepository;
 import com.server.booksummar.service.BookSummaryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -78,5 +81,19 @@ public class BookSummaryController {
     public ResponseEntity<BookSummaryResponse> sendSummaryEmail(@PathVariable UUID bookId, @PathVariable UUID userId) {
         BookSummaryResponse bookSummaryResponse = bookSummaryService.sendSummaryEmail(bookId, userId);
         return ResponseEntity.created(URI.create("/bookSummary" + bookSummaryResponse.getId())).body(bookSummaryResponse);
+    }
+
+    @PostMapping("/commentBookSummary")
+    @Operation(summary = "Comenta um resumo de um livro")
+    public ResponseEntity<CommentResponse> commentBookSummary(@RequestBody @Valid CommentRequest commentRequest) {
+        CommentResponse commentResponse = bookSummaryService.commentSummary(commentRequest);
+        return ResponseEntity.created(URI.create("/CommentResponse" + commentResponse.getId())).body(commentResponse);
+    }
+
+    @PostMapping("/likeBookSummary/{bookId}/{userId}")
+    @Operation(summary = "Curte um resumo de um livro")
+    public ResponseEntity<LikesResponse> likeBookSummary(@PathVariable UUID bookId, @PathVariable UUID userId) {
+        LikesResponse likesResponse = bookSummaryService.likeBookSummary(bookId, userId);
+        return ResponseEntity.created(URI.create("/LikesResponse" + likesResponse.getId())).body(likesResponse);
     }
 }
