@@ -97,6 +97,8 @@ public class AuthenticationController {
             emailService.sendEmail(emailDetails);
 
             return ResponseEntity.ok(registerResponse);
+        } catch (DataIntegrityViolationException ex) {
+            throw new DataIntegrityViolationException(ex.getMessage());
         } catch (Exception ex) {
             throw new RuntimeException(ex.getMessage());
         }
