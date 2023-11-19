@@ -3,6 +3,7 @@ package com.server.booksummar.exception;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -38,6 +39,15 @@ public class CustomExceptionHandler {
     public ResponseEntity<DefaultException> handleNoSuchElementException(NoSuchElementException ex) {
         DefaultException defaultException = new DefaultException();
         defaultException.setStatus(HttpStatus.NOT_FOUND.value());
+        defaultException.setMensagem(ex.getMessage());
+        defaultException.setZonedDateTime(ZonedDateTime.now());
+        return ResponseEntity.status(defaultException.getStatus()).body(defaultException);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<DefaultException> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+        DefaultException defaultException = new DefaultException();
+        defaultException.setStatus(HttpStatus.CONFLICT.value());
         defaultException.setMensagem(ex.getMessage());
         defaultException.setZonedDateTime(ZonedDateTime.now());
         return ResponseEntity.status(defaultException.getStatus()).body(defaultException);
