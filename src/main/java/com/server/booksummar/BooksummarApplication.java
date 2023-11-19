@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableAdminServer
 public class BooksummarApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BooksummarApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(BooksummarApplication.class, args);
+    }
 
 }

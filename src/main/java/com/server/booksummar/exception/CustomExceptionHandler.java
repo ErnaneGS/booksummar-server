@@ -20,9 +20,6 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class CustomExceptionHandler {
 
-    //MethodArgumentTypeMismatchException.class}
-    //Exception.class
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<DefaultException> handleResourceNotFoundException(MethodArgumentNotValidException ex) {
         DefaultException defaultException = new DefaultException();

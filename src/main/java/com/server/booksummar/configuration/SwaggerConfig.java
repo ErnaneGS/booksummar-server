@@ -39,5 +39,6 @@ public class SwaggerConfig {
             scheme = "bearer",
             bearerFormat = "JWT"
     )
-    static class BearerAuth { }
+    static class BearerAuth {
+    }
 }
