@@ -72,15 +72,15 @@ public class BookSummaryService {
 
     public BookSummaryResponse findById(UUID idBookSummary) {
         BookSummary bookSummary = bookSummaryRepository.findById(idBookSummary)
-                .orElseThrow(() -> new NoSuchElementException("Nenhum resumo encontrado com o Id informado."));
+                .orElseThrow(() -> new NoSuchElementException("Nenhum feedback encontrado com o Id informado."));
         return bookSummaryMapper.bookSummaryToBookSummaryResponse(bookSummary);
     }
 
     public BookSummaryResponse update(BookSummaryRequest bookSummaryRequest, UUID idBookSummary, UUID userId) {
         BookSummary bookSummary = bookSummaryRepository.findById(idBookSummary)
-                .orElseThrow(() -> new NoSuchElementException("Nenhum resumo encontrado com o Id informado"));
+                .orElseThrow(() -> new NoSuchElementException("Nenhum feedback encontrado com o Id informado"));
         if (!bookSummary.getUser().getId().equals(userId)) {
-            throw new RuntimeException("Operação permitida apenas para o autor deste resumo.");
+            throw new RuntimeException("Operação permitida apenas para o autor deste feedback.");
         }
         bookSummaryMapper.bookSummaryUpdate(bookSummaryRequest, bookSummary);
         bookSummary.setSummaryDate(ZonedDateTime.now());
@@ -92,7 +92,7 @@ public class BookSummaryService {
         if (bookSummaryRepository.existsById(idBookSummary)) {
             bookSummaryRepository.deleteById(idBookSummary);
         } else {
-            throw new NoSuchElementException("Nenhum resumo encontrado com o Id informado.");
+            throw new NoSuchElementException("Nenhum feedback encontrado com o Id informado.");
         }
     }
 
@@ -100,7 +100,7 @@ public class BookSummaryService {
         List<BookSummary> bookSummaries = bookSummaryRepository.findByBookNameContaining(bookName);
 
         if (bookSummaries.isEmpty()) {
-            throw new NoSuchElementException("Nenhum resumo encontrado com o nome do livro informado.");
+            throw new NoSuchElementException("Nenhum feedback encontrado com o nome do livro informado.");
         }
 
         return bookSummaries.stream()
@@ -112,7 +112,7 @@ public class BookSummaryService {
         List<BookSummary> bookSummaries = bookSummaryRepository.findByBookAuthorContaining(bookAuthor);
 
         if (bookSummaries.isEmpty()) {
-            throw new NoSuchElementException("Nenhum resumo encontrado com o nome do autor informado.");
+            throw new NoSuchElementException("Nenhum feedback encontrado com o nome do autor informado.");
         }
 
         return bookSummaries.stream()
@@ -124,7 +124,7 @@ public class BookSummaryService {
         List<BookSummary> bookSummaries = bookSummaryRepository.findByUserId(userId);
 
         if (bookSummaries.isEmpty()) {
-            throw new NoSuchElementException("Nenhum resumo encontrado com o id do usuario informado.");
+            throw new NoSuchElementException("Nenhum feedback encontrado com o id do usuario informado.");
         }
 
         return bookSummaries.stream()
@@ -134,13 +134,15 @@ public class BookSummaryService {
 
     public BookSummaryResponse sendSummaryEmail(UUID idBookSummary, UUID idUser) {
         BookSummary bookSummary = bookSummaryRepository.findById(idBookSummary)
-                .orElseThrow(() -> new NoSuchElementException("Nenhum resumo encontrado com o Id informado."));
+                .orElseThrow(() -> new NoSuchElementException("Nenhum feedback encontrado com o Id informado."));
 
         UserResponse user = userService.findById(idUser);
 
         EmailDetails emailDetails = new EmailDetails();
         emailDetails.setSubject("BOOK FEEDBACK - COMPARTILHAMENTO DE FEEDBACK");
-        emailDetails.setMessageBody("Nome do Livro: " + bookSummary.getBookName() + " \n Autor: " + bookSummary.getBookAuthor() + " \n Feedback: " + bookSummary.getSummary());
+        emailDetails.setMessageBody(" Nome do Livro: " + bookSummary.getBookName() + " \n Autor do Livro: " +
+                bookSummary.getBookAuthor() + " \n Feedback escrito por: " + bookSummary.getUser().getName() +
+                " \n\n Feedback: " + bookSummary.getSummary());
         emailDetails.setRecipient(user.getLogin());
         emailService.sendEmail(emailDetails);
 
@@ -166,7 +168,7 @@ public class BookSummaryService {
 
     public LikesResponse likeBookSummary(UUID idBookSummary, UUID idUser) {
         User user = userRepository.findById(idUser).orElseThrow(() -> new NoSuchElementException("Nenhum usuário encontrado com o Id informado."));
-        BookSummary bookSummary = bookSummaryRepository.findById(idBookSummary).orElseThrow(() -> new NoSuchElementException("Nenhum resumo encontrado com o Id informado"));
+        BookSummary bookSummary = bookSummaryRepository.findById(idBookSummary).orElseThrow(() -> new NoSuchElementException("Nenhum feedback encontrado com o Id informado"));
 
         Likes likes = new Likes();
         likes.setBookSummaryId(bookSummary.getId());
