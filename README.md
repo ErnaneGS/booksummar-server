@@ -1,4 +1,5 @@
 # Book Summary (Trabalho A3)
+![logo](img/logo.JPG)
 
 # Sobre o Projeto
 
@@ -103,7 +104,6 @@ desenvolvimento e a depuração de solicitações.
 Aproveite a documentação interativa do Swagger para explorar e testar a API de maneira eficaz.
 
 # Histórico de Versões
-
 ## [1.0.0] - [31/10/2023]
 ### Adicionado
 - [BS-2] Recurso de cadastro de usuário
@@ -117,6 +117,9 @@ Aproveite a documentação interativa do Swagger para explorar e testar a API de
 - [BS-12] Recurso para curtir e comentar resumos
 ### Melhorias
 - [BS-13] Melhorias no relacionamento das entidades BookSummary e User
+
+![linha_do_tempo](img/linha_do_tempo.png)
+
 # Licença
 
 Este projeto é disponibilizado sob a Licença [MIT License]. Veja o arquivo LICENSE.md para obter mais informações.
