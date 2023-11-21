@@ -112,7 +112,7 @@ Aproveite a documentação interativa do Swagger para explorar e testar a API de
 - [BS-3] Recurso de busca de resumos de livros
 - [BS-10] Recurso de compartilhamento de resumos de livro por e-mail
 
-## [1.1.0] - [A SER LANÇADO]
+## [1.1.0] - [21/11/2023]
 ### Adicionado
 - [BS-12] Recurso para curtir e comentar resumos
 ### Melhorias
