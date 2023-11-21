@@ -53,8 +53,12 @@ public class BookSummaryController {
 
     @GetMapping("/bookName/{bookName}")
     @Operation(summary = "Busca feedback pelo nome do livro")
-    public ResponseEntity<List<BookSummaryResponse>> findByBookName(@PathVariable String bookName) {
-        return ResponseEntity.ok(bookSummaryService.findByBookName(bookName));
+    public ResponseEntity<List<BookSummaryResponse>> findByBookName(@RequestParam(required = false) String bookName) {
+        if(bookName != null && !bookName.isEmpty()) {
+            return ResponseEntity.ok(bookSummaryService.findByBookName(bookName));
+        } else {
+            return ResponseEntity.ok(bookSummaryService.findAll());
+        }
     }
 
     @GetMapping("/bookAuthor/{bookAuthor}")
