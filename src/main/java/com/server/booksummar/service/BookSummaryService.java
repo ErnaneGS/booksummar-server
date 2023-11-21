@@ -99,10 +99,6 @@ public class BookSummaryService {
     public List<BookSummaryResponse> findByBookName(String bookName) {
         List<BookSummary> bookSummaries = bookSummaryRepository.findByBookNameContaining(bookName);
 
-        if (bookSummaries.isEmpty()) {
-            throw new NoSuchElementException("Nenhum feedback encontrado com o nome do livro informado.");
-        }
-
         return bookSummaries.stream()
                 .map(bookSummaryMapper::bookSummaryToBookSummaryResponse)
                 .collect(Collectors.toList());
