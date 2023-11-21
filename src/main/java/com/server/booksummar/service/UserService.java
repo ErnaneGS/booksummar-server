@@ -44,7 +44,7 @@ public class UserService {
         User user = userRepository.findById(idUser)
                 .orElseThrow(() -> new NoSuchElementException("Nenhum usuário encontrado com o Id informado"));
 
-        user.setPassword(new BCryptPasswordEncoder().encode(userRequest.getPassword()));
+        userRequest.setPassword(new BCryptPasswordEncoder().encode(userRequest.getPassword()));
 
         userMapper.userUpdate(userRequest, user);
         user = userRepository.save(user);

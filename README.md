@@ -1,4 +1,5 @@
 # Book Summary (Trabalho A3)
+![logo](img/logo.JPG)
 
 # Sobre o Projeto
 
@@ -25,6 +26,7 @@ resumos de livros de maneira fácil e rápida.
 - [ ] Cadastrar resumos de livros
 - [ ] Buscar resumos de livros
 - [ ] Compartilhar resumos de livro por e-mail
+- [ ] Curtir e Comentar resumos de livro
 
 # Tecnologias Usadas
 
@@ -102,7 +104,6 @@ desenvolvimento e a depuração de solicitações.
 Aproveite a documentação interativa do Swagger para explorar e testar a API de maneira eficaz.
 
 # Histórico de Versões
-
 ## [1.0.0] - [31/10/2023]
 ### Adicionado
 - [BS-2] Recurso de cadastro de usuário
@@ -110,6 +111,14 @@ Aproveite a documentação interativa do Swagger para explorar e testar a API de
 - [BS-3] Recurso de cadastro de resumos de livros
 - [BS-3] Recurso de busca de resumos de livros
 - [BS-10] Recurso de compartilhamento de resumos de livro por e-mail
+
+## [1.1.0] - [21/11/2023]
+### Adicionado
+- [BS-12] Recurso para curtir e comentar resumos
+### Melhorias
+- [BS-13] Melhorias no relacionamento das entidades BookSummary e User
+
+![linha_do_tempo](img/linha_do_tempo.png)
 
 # Licença
 

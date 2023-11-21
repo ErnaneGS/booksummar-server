@@ -1,5 +1,6 @@
 package com.server.booksummar.dto.response;
 
+import com.server.booksummar.domain.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,5 +21,7 @@ public class UserResponse {
     private String login;
 
     private String avatarURL;
+
+    private UserRole role;
 
 }

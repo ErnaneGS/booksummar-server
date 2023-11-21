@@ -1,11 +1,11 @@
 package com.server.booksummar.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -16,6 +16,8 @@ public class BookSummary {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String summary;
 
     private String bookName;
@@ -24,6 +26,21 @@ public class BookSummary {
 
     private String bookImage;
 
-    private UUID userId;
+    private ZonedDateTime summaryDate;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bookSummaryId")
+    @JsonIgnore
+    private List<Comment> comments;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bookSummaryId")
+    @JsonIgnore
+    private List<Likes> likes;
 
 }

@@ -1,5 +1,6 @@
 package com.server.booksummar.dto.request;
 
+import com.server.booksummar.domain.enums.UserRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -27,5 +28,7 @@ public class UserRequest {
     @NotBlank(message = "O campo 'senha' não pode estar em branco.")
     @Size(min = 8, max = 20, message = "A 'senha' deve ter entre 8 e 20 caracteres")
     private String password;
+
+    private UserRole role;
 
 }

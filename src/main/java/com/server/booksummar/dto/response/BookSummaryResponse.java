@@ -2,14 +2,14 @@ package com.server.booksummar.dto.response;
 
 import lombok.Data;
 
+import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Data
 public class BookSummaryResponse {
 
     private UUID id;
-
-    private String title;
 
     private String summary;
 
@@ -19,6 +19,12 @@ public class BookSummaryResponse {
 
     private String bookImage;
 
-    private UUID userId;
+    private ZonedDateTime summaryDate;
+
+    private UserResponse user;
+
+    private List<CommentResponse> comments;
+
+    private List<LikesResponse> likes;
 
 }
