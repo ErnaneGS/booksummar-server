@@ -134,11 +134,14 @@ public class BookSummaryService {
 
         UserResponse user = userService.findById(idUser);
 
+        String htmlText = bookSummary.getSummary();
+        String plainText = htmlText.replaceAll("<[^>]*>", "");
+
         EmailDetails emailDetails = new EmailDetails();
         emailDetails.setSubject("BOOK FEEDBACK - COMPARTILHAMENTO DE FEEDBACK");
         emailDetails.setMessageBody(" Nome do Livro: " + bookSummary.getBookName() + " \n Autor do Livro: " +
                 bookSummary.getBookAuthor() + " \n Feedback escrito por: " + bookSummary.getUser().getName() +
-                " \n\n Feedback: " + bookSummary.getSummary());
+                " \n\n Feedback: " + plainText);
         emailDetails.setRecipient(user.getLogin());
         emailService.sendEmail(emailDetails);
 
